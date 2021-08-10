@@ -30,6 +30,7 @@ const Action = () => {
     }
     return (
         <div>
+            {alert? <div>{alert}</div>: null}
         <label>
                 Who:
                 <span>Example: "User"</span>

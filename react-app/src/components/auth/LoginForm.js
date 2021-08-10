@@ -58,6 +58,7 @@ const LoginForm = () => {
         />
         <button type='submit'>Login</button>
       </div>
+      <button type="button" onClick={()=>dispatch(login("demo@aa.io","password"))}>Demo</button>
     </form>
   );
 };
