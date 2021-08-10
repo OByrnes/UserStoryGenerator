@@ -2,7 +2,7 @@
 
 name: CI
 
-name: Python application
+name: User Story Generator
 
 on:
   push:
