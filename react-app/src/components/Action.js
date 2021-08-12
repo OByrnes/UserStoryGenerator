@@ -38,12 +38,12 @@ const Action = () => {
                 <input tabIndex={2} type='text' value={who} onChange={(e)=>setWho(e.target.value)} required/>
             <label>
                 Action:
-                <span>Example: "edit a note"</span>
+                <span>Example: "navigate to my profile page"</span>
             </label>
                 <input tabIndex={3} type='text' value={action} onChange={(e)=>setAction(e.target.value)} required/>
             <label>
                 Result:
-                <span>Example: "save the update note"</span>
+                <span>Example: "view my recent notes"</span>
             </label>
                 <input tabIndex={4} type='text' value={result} onChange={(e)=>setResult(e.target.value)} required/>
             <div className="button-Container__inside-form">

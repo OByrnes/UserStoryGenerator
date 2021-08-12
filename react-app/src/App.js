@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import CreateStoryForm from './components/CreateStoryForm'
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { authenticate } from './store/session';
+import Splash from './components/splash';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -27,13 +28,17 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path="/" exact={true}>
+          <Splash />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/' exact={true} >
+
+        <ProtectedRoute path='/create' exact={true} >
          <CreateStoryForm />
 
         </ProtectedRoute>
