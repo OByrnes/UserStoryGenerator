@@ -42,7 +42,9 @@ Each Feature will have several 'stories':
 Example:
 
 WHO: "a logged in user"
+
 ACTION: "click on a button on my profile page near my profile photo"
+
 RESULT: "see an input where I can upload a new photo for my profile"
 
 ### Preview The user stories:
