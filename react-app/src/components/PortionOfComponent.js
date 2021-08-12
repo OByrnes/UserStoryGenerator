@@ -8,7 +8,6 @@ import {useStory} from "../context/StoryContext"
 
 const PortionOfComponent = () => {
     const { status, storyObj } =  useStory()
-    console.log(storyObj)
  
        { if(status === "new"){
            return <AddFeatureComponent />
