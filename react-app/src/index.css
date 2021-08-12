@@ -1,17 +1,20 @@
 /* TODO Add site wide styles */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;1,100;1,300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 body{
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-   
+    
 }
 form{
     width: 100%;
+    background-color: white;
     
 }
 nav{
     width: 100%;
-    background-color: #1282a2;
+    background-color: #00171f;
     font-size: 30px;
 }
 nav ul{
@@ -22,16 +25,20 @@ nav ul{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    color: #0a1128;
+    color: #fff;
 }
 
 nav ul li{
     list-style: none;
+    
+}
+nav ul li:hover{
+    background-color: #1282a2;
 }
 
 a{
     text-decoration: none;
-    color: #0a1128;
+    color: #053F77;
 }
 
 form div{
@@ -47,7 +54,7 @@ form div{
     flex-direction: row;
 }
 .button-container button{
-    background-color: #1282a2;
+    background-color: #007ea7;
     margin: 10px;
 }
 input[type=text] {
@@ -73,14 +80,14 @@ input[type=password] {
 input[type=text]:focus {
     border-radius: 5px;
     border: 3px solid #0a1128;
-    background-color: #5b909e6c;
+    background-color: #007ea7;
     color: #0a1128;
   }
 
   button{
       width: 100px;
       height: 60px;
-      background-color: #034078;
+      background-color: #043C72;
       border:none;
      
       padding: 7px 10px;
@@ -95,7 +102,7 @@ input[type=text]:focus {
 
 }
 .form-Styling{
-    padding: 40px;
+    padding: 10px;
     margin: 0 auto;
     width: 80%;
 
@@ -164,3 +171,74 @@ label span{
     height: 30px;
     width: 60px;
 }
+
+.splashPage{
+    width: 100%;
+    background-color: #00a8e8;
+    display: grid;
+    /* grid-area: 1fr 1fr 1fr 1fr; */
+    grid-template-areas: 
+            "a a a a"
+            "m m m m"
+            "b b c c"
+            "d e e e"
+            "f f g g"
+            "h h h i";
+}
+.splashPage p{
+    font-size: 36px;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    width: 100%;
+    padding: 15px;
+   
+}
+.splashPage img{
+    background-color: #00a8e8;
+    padding: 15px;
+    margin-left: 80px;
+    margin-bottom: 80px;
+}
+
+.splash-header{
+    grid-area: a;
+    font-size: 46px;
+}
+.splash__x{
+    font-size: larger;
+    font-weight: bold;
+    font-style: italic;
+    grid-area: m;
+}
+
+.splash__b{
+    grid-area: b;
+}
+.splash__c{
+    grid-area: c;
+}
+
+.splash__d{
+    grid-area: e;
+}
+
+.splash__e{
+    grid-area: d;
+}
+
+.splash__f{
+    grid-area: f;
+}
+
+.splash__g{
+    grid-area: g;
+}
+
+.splash__h{
+    grid-area: h;
+}
+.splash__i{
+    grid-area: i;
+}
+
+
