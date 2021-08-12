@@ -4,6 +4,7 @@ import { createStory } from "../helper/createStory";
 
 import PortionOfComponent from "./PortionOfComponent";
 import Preview from "./preview";
+import SideBar from "./Sidebar";
 
 
 const CreateStoryForm = () => {
@@ -26,7 +27,8 @@ const CreateStoryForm = () => {
         setStoryObj(newObj)
     },[appTitle])
     return (
-    <div>
+    <div className="outer_container">
+    <div className="main-Content__container">
         <form className="form-Styling" onSubmit={submitStory}>
             <div>
             <label>
@@ -45,6 +47,8 @@ const CreateStoryForm = () => {
             <Preview />
         </div>}
 
+    </div>
+    <SideBar />
     </div>
     )
     

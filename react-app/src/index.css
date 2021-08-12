@@ -6,8 +6,8 @@ body{
    
 }
 form{
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
+    
 }
 nav{
     width: 100%;
@@ -82,7 +82,7 @@ input[type=text]:focus {
       height: 60px;
       background-color: #034078;
       border:none;
-      border-radius: 10px;
+     
       padding: 7px 10px;
       color:#fefcfb;
       cursor: pointer;
@@ -128,4 +128,39 @@ label span{
 
 .button-Container__inside-form button{
     margin: 10px;
+}
+.outer_container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.main-Content__container{
+    width: 90%;
+
+}
+.side-bar__container{
+    border-left: grey 3px solid;
+    padding-left: 10px;
+    margin-top: 50px;
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+.side-bar__container div:hover{
+    color: #034078;
+    cursor: pointer;
+}
+.side-bar__container div span{
+    width: 190px;
+    overflow: hidden;
+}
+.side-bar__container div{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit button{
+    color:gray;
+    height: 30px;
+    width: 60px;
 }

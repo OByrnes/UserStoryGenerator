@@ -8,7 +8,7 @@ const AddQuestions = () => {
     const [alert, setAlert] = useState('')
 
     const {setStoryObj, storyObj, status, setStatus, currentFeature} = useStory()
-    console.log(currentFeature)
+    
 
     const addNewQuestion = () => {
         let newQuestions = [...storyObj[currentFeature].questions, question]
