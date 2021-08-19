@@ -1,35 +1,63 @@
 import React, { useState, useEffect } from "react";
 import { useStory } from "../context/StoryContext";
 import { createStory } from "../helper/createStory";
+import { useDispatch } from "react-redux";
 
 import PortionOfComponent from "./PortionOfComponent";
 import Preview from "./preview";
 import SideBar from "./Sidebar";
 
+import { AddUserStory, EditUserStory } from "../store/story";
 
-const CreateStoryForm = () => {
+
+
+const CreateStoryForm = ({story}) => {
+    
     const [appTitle, setAppTitle] = useState('')
     const [showPreview, setShowPreview] = useState(false)
-    const { setStoryObj, storyObj, setMdStory, mdStory } = useStory()
-
+    const [showSidebar, setShowSidebar] = useState(false)
+    const { setStoryObj, storyObj, setMdStory, mdStory, status } = useStory()
+   
+    useEffect(()=> {
+        if(story){
+            setAppTitle(story.story.title)
+        }
+    },[story])
+    const dispatch = useDispatch()
+    
     const PreviewStory = () => {
         setMdStory(createStory(storyObj))
         setShowPreview(true)
     }
 
-    const submitStory = (e) => {
+    
+
+    const saveStoryToDb = (e) => {
         e.preventDefault()
         setMdStory(createStory(storyObj))
+        const formData = new FormData()
+        formData.append("storyObj",JSON.stringify(storyObj))
+        if(story){
+            dispatch(EditUserStory(formData, story.id))
+        }
+        else{
+        dispatch(AddUserStory(formData))}
     }
-    useEffect(()=>{
+
+    const updateTitle = () => {
         let newObj = {...storyObj}
         newObj.title = appTitle
         setStoryObj(newObj)
+    }
+    useEffect(()=>{
+        updateTitle()
+        
     },[appTitle])
+
     return (
     <div className="outer_container">
     <div className="main-Content__container">
-        <form className="form-Styling" onSubmit={submitStory}>
+        <form className="form-Styling" onSubmit={saveStoryToDb}>
             <div>
             <label>
                 Name Of The App
@@ -37,10 +65,10 @@ const CreateStoryForm = () => {
                 <input tabIndex={1} type="text" value = {appTitle} onChange={(e)=>setAppTitle(e.target.value)} />
                 </div>
             <PortionOfComponent />
-            <div className='button-container'>
-                <button type="submit">Create Story</button>
-                <button type='button' onClick={() => {navigator.clipboard.writeText(mdStory)}}>Copy To Clipboard</button>
-                <button type='button' onClick={PreviewStory}>Show Preview</button>
+            <div className='button-container' hidden={!(status==='new' && Object.keys(storyObj).length)}>
+                <button hidden={!(status==='new' && Object.keys(storyObj).length)} type='button' onClick={() => {navigator.clipboard.writeText(mdStory)}} >Copy To Clipboard</button>
+                {showPreview?<button onClick={()=>setShowPreview(false)}>Hide Preview</button>:<button hidden={!(status==='new' && Object.keys(storyObj).length)} type='button' onClick={PreviewStory} >Show Preview</button>}
+                <button hidden={!(status==='new' && Object.keys(storyObj).length)} type="submit" onClick={saveStoryToDb} >Save Story</button>
             </div>
         </form>
         {showPreview && <div className='preview-Container'>
@@ -48,7 +76,10 @@ const CreateStoryForm = () => {
         </div>}
 
     </div>
-    <SideBar />
+    <div className={showSidebar?"sideBar__holder active":"sideBar__holder"}>
+    {showSidebar?<div onClick={()=>setShowSidebar(false)} className="sidebar__scootch"><span>&#187;</span><span>&#187;</span><span>&#187;</span></div>: <div onClick={()=>setShowSidebar(true)} className="sidebar__scootch"><span>&#171;</span><span>&#171;</span><span>&#171;</span></div>}
+    {showSidebar && <SideBar />}
+    </div>
     </div>
     )
     

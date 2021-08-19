@@ -7,7 +7,7 @@ const AddQuestions = () => {
     const [answer, setAnswer] = useState("")
     const [alert, setAlert] = useState('')
 
-    const {setStoryObj, storyObj, status, setStatus, currentFeature} = useStory()
+    const {setStoryObj, storyObj, setStatus, currentFeature} = useStory()
     
 
     const addNewQuestion = () => {

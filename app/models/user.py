@@ -11,6 +11,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    stories = db.relationship("Story", backref="User", cascade="all, delete-orphan")
+
     @property
     def password(self):
         return self.hashed_password
@@ -26,5 +28,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            "stories": {story.to_dict()["id"]: story.to_dict() for story in self.stories}
         }

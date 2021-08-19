@@ -2,21 +2,26 @@ import bobsStory from "../images/bobsStory.png";
 import bobsResult from "../images/bobsResult.png";
 import bobsAction from "../images/bobsAction.png";
 import bobTheUser from "../images/bobTheUser.png";
-import {  Redirect } from 'react-router-dom';
+import {  Redirect, useLocation, NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 const Splash = () => {
+    const location = useLocation()
     const user = useSelector(state => state.session.user)
     if (user) {
-        return <Redirect to='/create' />;
+        return <Redirect to={{
+            pathname: "/create",
+            state: { user: user }
+          }} />;
       }
+      console.log("property_id",location);
 return (
     <div className="splashPage">
         <div className="splash-header">
         <p>A user story is an informal explaination of a feature from the perspective of a user</p>
         <p>They help you answer questions about the features</p>
         <p>and save you time in development</p>
-
+        <NavLink className='signup' to="/signup">Start Now</NavLink>
         </div>
         <p className="splash__x">User stories have three parts...</p>
         <p className="splash__b"> Who? <br></br>The User or specific type of user </p>

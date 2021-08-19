@@ -3,11 +3,13 @@ import {useStory} from "../context/StoryContext"
 
 const SideBar= () => {
     
-    const {currentFeature, storyObj, setStatus, setStoryObj} = useStory()
+    const { storyObj } = useStory()
     const featureList = storyObj.featureList
     return (
         <div className="side-bar__container">
+            <h2>Features:</h2>
             {featureList.map(feature => (
+
                 <InnerSideBar feature={storyObj[feature]} />
                 
             ))}
