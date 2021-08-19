@@ -7,7 +7,7 @@ import {useStory} from "../context/StoryContext"
 
 
 const PortionOfComponent = () => {
-    const { status, storyObj } =  useStory()
+    const { status } =  useStory()
  
        { if(status === "new"){
            return <AddFeatureComponent />

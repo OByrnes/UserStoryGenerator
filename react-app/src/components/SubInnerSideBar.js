@@ -1,14 +1,35 @@
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import EditActions from "./editActions"
 import EditFeatureName from "./editFeatureName"
 import EditQuestion from "./editQuestions"
+import { useDispatch, useSelector } from "react-redux"
+import {useStory} from "../context/StoryContext"
+import { EditUserStory } from "../store/story"
+import { createStory } from "../helper/createStory"
 
 
 const SubInnerSideBar = ({feature, index, ele}) => {
     const [edit, setEdit] = useState(false)
     const {questions, answers, users, results, actions} = feature
+    const story = useSelector(state => state.stories.current)
+    const {setMdStory, storyObj } = useStory()
 
+    const dispatch = useDispatch()
+    const saveStoryToDb = () => {
+        setMdStory(createStory(storyObj))
+        const formData = new FormData()
+        formData.append("storyObj",JSON.stringify(storyObj))
+    
+        if(story ){
+            dispatch(EditUserStory(formData, story.id))
+        }
+    }
+    useEffect(()=> {
+        if(!edit){
+            saveStoryToDb()
+        }
+    }, [edit])
    
     if(ele ==="questions"){
         return(<div onClick={()=>setEdit(true)} >
@@ -28,7 +49,7 @@ const SubInnerSideBar = ({feature, index, ele}) => {
     <span>{results[index]}</span></>}
 </div>)
 }else{
-    return (<div onClick={()=>setEdit(true)}>{edit? <EditFeatureName feature={feature} setEdit={setEdit}/>:<span>{feature.feature}</span>}</div>
+    return (<div onClick={()=>setEdit(true)}>{edit? <EditFeatureName feature={feature} setEdit={setEdit}/>:<h3>{feature.feature}</h3>}</div>
     )
 }
 

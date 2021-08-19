@@ -5,12 +5,19 @@
 body{
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+body::-webkit-scrollbar {
+    display: none;
+  }
 form{
+    margin-top: 50px;
     width: 100%;
     background-color: white;
-    
+    height: 80%;
+    box-shadow: 2px 2px 10px 1px #0a112818;
 }
 nav{
     width: 100%;
@@ -78,8 +85,8 @@ input[type=password] {
     border-bottom: 2px solid #0a1128;
 }
 input[type=text]:focus {
-    border-radius: 5px;
-    border: 3px solid #0a1128;
+    border:none;
+    outline: none;
     background-color: #007ea7;
     color: #0a1128;
   }
@@ -94,6 +101,15 @@ input[type=text]:focus {
       color:#fefcfb;
       cursor: pointer;
   }
+  .HomeButton{
+      background-color: transparent;
+      width: min-content;
+      height: min-content;
+  }
+  .HomeButton:hover{
+      cursor: pointer;
+      background-color: #fefcfb;
+  }
 .preview-Container{
     margin: 0 auto;
     background-color: #fefcfb;
@@ -103,9 +119,8 @@ input[type=text]:focus {
 }
 .form-Styling{
     padding: 10px;
-    margin: 0 auto;
     width: 80%;
-
+    border-radius: 5px;
 }
 
 label{
@@ -142,18 +157,61 @@ label span{
     width: 100%;
 }
 .main-Content__container{
-    width: 90%;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: #fefcfb;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-Content__container::-webkit-scrollbar {
+    display: none;
+  }
 
+.sidebar__scootch{
+    height: 100vh;
+    width: 40px;
+    color: #00a8e8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 45px;
+    background-color: #034078;
+}
+.sidebar__scootch:hover{
+    cursor: pointer;
+    width: 40px;
+    align-items: flex-start;
+    content: "Features"
+}
+.sidebar__scootch span{
+    font-size: 30px;
+}
+.sideBar__holder{
+    display: flex;
+    width: 50px;
+    flex-direction: row;
+    right: -10px;
+    position: absolute;
+    background-color: #fefcfb;
+    z-index: 5;
+}
+.sideBar__holder.active{
+    right: 0px;
+    width: 500px;
+    transition: width .25s ease-in;
 }
 .side-bar__container{
-    border-left: grey 3px solid;
     padding-left: 10px;
     margin-top: 50px;
-    max-width: 200px;
+    /* max-width: 500px; */
     display: flex;
     flex-direction: column;
 }
-.side-bar__container div:hover{
+.innerSidebar div:hover{
     color: #034078;
     cursor: pointer;
 }
@@ -167,9 +225,12 @@ label span{
 }
 
 .edit button{
-    color:gray;
-    height: 30px;
-    width: 60px;
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 20px;
+    width: 70px;
 }
 
 .splashPage{
@@ -240,5 +301,53 @@ label span{
 .splash__i{
     grid-area: i;
 }
-
+.dropdown__container{
+    position: relative;
+}
+.signup{
+    margin: 0 auto;
+}
+.dropdown {
+    position: absolute;
+    top: 79px;
+    width: 300px;
+    height: 300px;
+    overflow-y: scroll;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: #0a1128;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.dropdown::-webkit-scrollbar {
+    display: none;
+  }
+  
+.dropdown li{
+    width: 100%;
+    padding:10px;
+    margin:0px;
+}
+ul.dropdown{
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.innerSidebar{
+display: flex;
+flex-direction: column;
+border-bottom: 2px solid #0a1128;
+padding-bottom: 10px;
+}
+.innerSidebar li{
+list-style: none;
+padding: 7px;
+}
+.innerSidebar ul{
+    margin: 0px;
+    padding: 0px
+}
 

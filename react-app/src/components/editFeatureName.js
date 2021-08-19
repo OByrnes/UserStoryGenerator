@@ -18,7 +18,7 @@ const EditFeatureName = ({feature, setEdit}) => {
     return(
     <form className="edit" onSubmit={UpdateFeature}>
         <input type="text" value={featureName} onChange={(e)=>setFeatureName(e.target.value)}/>
-        <button type="submit">Save Changes</button>
+        <button type="submit">Save</button>
         
     </form>
     )

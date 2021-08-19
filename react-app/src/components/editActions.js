@@ -31,7 +31,7 @@ const EditActions = ({feature, index, setEdit}) => {
         <input type="text" value={who} onChange={(e)=>setWho(e.target.value)}/>
         <input type="text" value={action} onChange={(e)=>setAction(e.target.value)}/>
         <input type="text" value={result} onChange={(e)=>setResult(e.target.value)}/>
-        <button type="submit">Save Changes</button>
+        <button type="submit">Save</button>
         
     </form>
     )

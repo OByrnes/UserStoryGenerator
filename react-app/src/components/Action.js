@@ -28,6 +28,13 @@ const Action = () => {
         addNewAction()
         setStatus("new")
     }
+    const goBackToUser = () => {
+        if(action && result){
+            addNewAction()
+        }
+        setStatus("userA")
+    }
+    
     return (
         <div>
             {alert? <div>{alert}</div>: null}
@@ -47,8 +54,9 @@ const Action = () => {
             </label>
                 <input tabIndex={4} type='text' value={result} onChange={(e)=>setResult(e.target.value)} required/>
             <div className="button-Container__inside-form">
-            <button tabIndex={5} type='button' onClick={addNewAction}>Add New Action</button>
-            <button tabIndex={6} type='button' onClick={moveToNextSection}>Move to Next Feature</button>
+            <button tabIndex={5} type='button' onClick={goBackToUser}>Go Back </button>
+            <button tabIndex={6} type='button' onClick={addNewAction}>Add New Action</button>
+            <button tabIndex={7} type='button' onClick={moveToNextSection}>Move to Next Feature</button>
             </div>
         </div>
     )

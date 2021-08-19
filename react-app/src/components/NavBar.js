@@ -1,18 +1,35 @@
 import userStory from "../images/userStory.png"
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import StoryDropDown from "./storyDropDown";
+import {useStory} from "../context/StoryContext"
+import { clearCurrent } from "../store/story";
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user)
+  const {setStoryObj} = useStory()
+  const history = useHistory()
+  const dispatch = useDispatch()
+ const goToHome = (e) => {
+  e.preventDefault()
+  if(user){
+    setStoryObj({featureList:[], title:""})
+    dispatch(clearCurrent())
+
+  }
+  history.push("/create")
+
+ }
+
   return (
     <nav>
       <ul>
         <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
+          <button className="HomeButton" onClick={goToHome} >
             <img src={userStory} alt="home" />
-          </NavLink>
+          </button>
         </li>
        { !user ? <><li>
           <NavLink to='/login' exact={true} activeClassName='active'>
@@ -24,9 +41,11 @@ const NavBar = () => {
             Sign Up
           </NavLink>
         </li></>:
+        <>
+        <StoryDropDown />
         <li>
           <LogoutButton />
-        </li>}
+        </li></>}
       </ul>
     </nav>
   );
