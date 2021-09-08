@@ -14,7 +14,8 @@ const AddFeatureComponent = () => {
                 userA: '',
                 users:[],
                 actions:[],
-                results:[]
+                results:[],
+                acceptanceCriteria:[[]]
             }
 
         let updatedStory = {...storyObj}

@@ -7,8 +7,9 @@ import NavBar from './components/NavBar';
 import CreateStoryForm from './components/CreateStoryForm'
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { authenticate } from './store/session';
-import Splash from './components/splash';
+import Splash from './components/splash/splash';
 import StoryPage from './components/storypage';
+import NotePage from './components/NotePage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/stories/:id" exact={true}>
           <StoryPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/notes" exact={true}>
+          <NotePage />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

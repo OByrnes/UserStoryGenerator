@@ -321,6 +321,16 @@ label span{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+textarea{
+    margin: 0 auto;
+    padding-left: 40px;
+    width: 80%;
+    height: 400px;
+    outline: none;
+    border: none;
+    border-bottom: 4px solid #043C72;
+    font-family: 'Montserrat', sans-serif;
+}
 .dropdown::-webkit-scrollbar {
     display: none;
   }

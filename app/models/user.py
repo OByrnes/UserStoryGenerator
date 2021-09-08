@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     stories = db.relationship("Story", backref="User", cascade="all, delete-orphan")
+    notes = db.relationship("Note", backref="User", cascade="all, delete-orphan")
 
     @property
     def password(self):
@@ -29,5 +30,10 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            "stories": {story.to_dict()["id"]: story.to_dict() for story in self.stories}
+            "stories": {story.just_id(): story.to_dict() for story in self.stories},
+            "notes": {note.just_id(): note.to_dict() for note in self.notes}
+            
         }
+
+    def just_id(self):
+        return self.id

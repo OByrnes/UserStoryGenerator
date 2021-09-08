@@ -7,6 +7,7 @@ const EditActions = ({feature, index, setEdit}) => {
     const [who, setWho] = useState(feature.users[index])
     const [action, setAction] = useState(feature.actions[index])
     const [result, setResult] = useState(feature.results[index])
+    const [acceptanceCriteria, setAcceptanceCriteria] = useState(feature.acceptanceCriteria[index])
     const UpdateFeature = (e) => {
         e.preventDefault()
 
@@ -18,9 +19,12 @@ const EditActions = ({feature, index, setEdit}) => {
         updatedResults[index] = result
         const updatedUsers = [...feature.users]
         updatedUsers[index] = who
+        const updatedCriteria = [...feature.acceptanceCriteria]
+        updatedUsers[index] = acceptanceCriteria
         updatedFeature.actions = updatedActions
         updatedFeature.results = updatedResults
         updatedFeature.users = updatedUsers
+        updatedFeature.acceptanceCriteria = updatedCriteria
         updatedStory[feature.feature] = updatedFeature
         setStoryObj(updatedStory)
 
@@ -31,6 +35,7 @@ const EditActions = ({feature, index, setEdit}) => {
         <input type="text" value={who} onChange={(e)=>setWho(e.target.value)}/>
         <input type="text" value={action} onChange={(e)=>setAction(e.target.value)}/>
         <input type="text" value={result} onChange={(e)=>setResult(e.target.value)}/>
+        <input type="text" value={acceptanceCriteria} onChange={(e)=>setAcceptanceCriteria(e.target.value)}/>
         <button type="submit">Save</button>
         
     </form>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useStory } from "../context/StoryContext";
 import { createStory } from "../helper/createStory";
 import { useDispatch } from "react-redux";
-
+import {useParams} from "react-router-dom"
 import PortionOfComponent from "./PortionOfComponent";
 import Preview from "./preview";
 import SideBar from "./Sidebar";
@@ -12,14 +12,16 @@ import { AddUserStory, EditUserStory } from "../store/story";
 
 
 const CreateStoryForm = ({story}) => {
-    
+    console.log(process.env.REACT_APP_MAPS_KEY)
+    const { id } = useParams()
     const [appTitle, setAppTitle] = useState('')
     const [showPreview, setShowPreview] = useState(false)
     const [showSidebar, setShowSidebar] = useState(false)
+    const [editTitle, setEditTitle] = useState(false)
     const { setStoryObj, storyObj, setMdStory, mdStory, status } = useStory()
    
     useEffect(()=> {
-        if(story){
+        if(story && storyObj.id){
             setAppTitle(story.story.title)
         }
     },[story])
@@ -37,7 +39,7 @@ const CreateStoryForm = ({story}) => {
         setMdStory(createStory(storyObj))
         const formData = new FormData()
         formData.append("storyObj",JSON.stringify(storyObj))
-        if(story){
+        if(id){
             dispatch(EditUserStory(formData, story.id))
         }
         else{
@@ -58,12 +60,12 @@ const CreateStoryForm = ({story}) => {
     <div className="outer_container">
     <div className="main-Content__container">
         <form className="form-Styling" onSubmit={saveStoryToDb}>
-            <div>
+            {(editTitle || status === "new")?<div>
             <label>
                 Name Of The App
             </label>
                 <input tabIndex={1} type="text" value = {appTitle} onChange={(e)=>setAppTitle(e.target.value)} />
-                </div>
+                </div>:<h2 onClick={()=>setEditTitle(true)}>{appTitle}</h2>}
             <PortionOfComponent />
             <div className='button-container' hidden={!(status==='new' && Object.keys(storyObj).length)}>
                 <button hidden={!(status==='new' && Object.keys(storyObj).length)} type='button' onClick={() => {navigator.clipboard.writeText(mdStory)}} >Copy To Clipboard</button>

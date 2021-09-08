@@ -11,7 +11,7 @@ import { createStory } from "../helper/createStory"
 
 const SubInnerSideBar = ({feature, index, ele}) => {
     const [edit, setEdit] = useState(false)
-    const {questions, answers, users, results, actions} = feature
+    const {questions, answers, users, results, actions, acceptanceCriteria} = feature
     const story = useSelector(state => state.stories.current)
     const {setMdStory, storyObj } = useStory()
 
@@ -44,9 +44,13 @@ const SubInnerSideBar = ({feature, index, ele}) => {
     return(
     <div onClick={()=>setEdit(true)} >
     {edit? <EditActions feature={feature} setEdit={setEdit} index={index} />:
-     <><span>{users[index]}</span>
+     <>
+     <h4>Story</h4>
+     <span>{users[index]}</span>
     <span>{actions[index]}</span>
-    <span>{results[index]}</span></>}
+    <span>{results[index]}</span>
+    <h4>Acceptance Criteria</h4>
+    <span>{acceptanceCriteria[index]}</span></>}
 </div>)
 }else{
     return (<div onClick={()=>setEdit(true)}>{edit? <EditFeatureName feature={feature} setEdit={setEdit}/>:<h3>{feature.feature}</h3>}</div>

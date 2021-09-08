@@ -15,6 +15,7 @@ const NavBar = () => {
  const goToHome = (e) => {
   e.preventDefault()
   if(user){
+    
     setStoryObj({featureList:[], title:""})
     dispatch(clearCurrent())
 
@@ -43,6 +44,9 @@ const NavBar = () => {
         </li></>:
         <>
         <StoryDropDown />
+        <li>
+          <NavLink to='/notes' exact={true} activeClassName="active">Notes</NavLink>
+        </li>
         <li>
           <LogoutButton />
         </li></>}

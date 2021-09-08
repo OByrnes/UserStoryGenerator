@@ -1,7 +1,7 @@
-import bobsStory from "../images/bobsStory.png";
-import bobsResult from "../images/bobsResult.png";
-import bobsAction from "../images/bobsAction.png";
-import bobTheUser from "../images/bobTheUser.png";
+import bobsStory from "../../images/bobsStory.png";
+import bobsResult from "../../images/bobsResult.png";
+import bobsAction from "../../images/bobsAction.png";
+import bobTheUser from "../../images/bobTheUser.png";
 import {  Redirect, useLocation, NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
