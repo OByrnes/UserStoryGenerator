@@ -1,13 +1,14 @@
+import { useSelector } from "react-redux";
 import Editor from "rich-markdown-editor";
 import { useStory } from "../context/StoryContext";
 
 const Preview = () => {
-    const { mdStory } = useStory()
+    const story = useSelector(state => state.story.current)
 
     return(
 
         <div>
-            <Editor value={mdStory} readOnly={true} />
+            <Editor value={story.story} readOnly={true} />
         </div>
     )
 

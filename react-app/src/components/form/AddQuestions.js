@@ -1,35 +1,39 @@
-import {useStory} from "../context/StoryContext";
+import {useStory} from "../../context/StoryContext";
 import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { AddQuestion } from "../../store/questions";
+import { SetErrors } from "../../store/session";
 
 
 const AddQuestions = () => {
+    const dispatch = useDispatch()
+
+    const story = useSelector(state => state.stories.current)
+    const errors = useSelector(state => state.errors)
     const [question, setQuestion] = useState("")
     const [answer, setAnswer] = useState("")
-    const [alert, setAlert] = useState('')
+ 
 
-    const {setStoryObj, storyObj, setStatus, currentFeature} = useStory()
+    const {status, currentFeature} = useStory()
     
 
-    const addNewQuestion = () => {
-        let newQuestions = [...storyObj[currentFeature].questions, question]
-        let newAnswers = [...storyObj[currentFeature].answers, answer]
-        setQuestion("")
-        setAnswer('')
-        setAlert(`Your question and answer was added to the ${currentFeature} feature`)
-        let updatedFeature = storyObj[currentFeature]
-        updatedFeature.questions = newQuestions
-        updatedFeature.answers = newAnswers
-        let updatedStory = {...storyObj}
-        updatedStory[currentFeature] = updatedFeature
-        setStoryObj(updatedStory)
+    const addNewQuestion = async () => {
+        const newQuestion = {question, answer, story_id:story.id}
+        await dispatch(AddQuestion(newQuestion))
+        if(!errors){
+            setQuestion("")
+            setAnswer('')
+            dispatch(SetErrors([`Your question and answer was added to the ${currentFeature} feature`]))
+            
+        }
     }
     const moveToNextSection = () => {
         addNewQuestion()
-        setStatus("userA")
+        status.current = "userA"
     }
     return (
         <div>
-            {alert?<div>{alert}</div>:null}
+     
             <label>
                 Question:
                 <span>Example: "Can users edit their messages?"</span>

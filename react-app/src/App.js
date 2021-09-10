@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
-import CreateStoryForm from './components/CreateStoryForm'
+import CreateStoryForm from './components/form/CreateStoryForm'
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { authenticate } from './store/session';
 import Splash from './components/splash/splash';
 import StoryPage from './components/storypage';
 import NotePage from './components/NotePage';
+import ErrorComponent from './components/errors';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -29,6 +30,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <ErrorComponent />
       <Switch>
         <Route path="/" exact={true}>
           <Splash />

@@ -1,9 +1,16 @@
+import { SET_NOTES } from "./note";
 import { setUserStories } from "./story";
 
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const SET_ERRORS = 'session/SET_ERRORS'
 
+
+export const SetErrors = (errors) => ({
+  type: SET_ERRORS,
+  payload: errors
+})
 const setUser = (user) => ({
   type: SET_USER,
   payload: user
@@ -13,7 +20,7 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
-const initialState = { user: null };
+
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -24,7 +31,7 @@ export const authenticate = () => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     if (data.errors) {
-      return;
+      SetErrors(data.errors)
     }
   
     dispatch(setUser(data));
@@ -47,15 +54,15 @@ export const login = (email, password) => async (dispatch) => {
   
   if (response.ok) {
     const data = await response.json();
-    dispatch(setUser(data))
-     dispatch(setUserStories(data.stories))
-     
-    return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
     if (data.errors) {
-      return data.errors;
+      dispatch(SetErrors(data.errors)) ;
+    }else{
+      dispatch(setUser(data))
+       dispatch(setUserStories(data.stories))
+       
+
     }
+    return null;
   } else {
     return ['An error occurred. Please try again.']
   }
@@ -103,12 +110,20 @@ export const signUp = (username, email, password) => async (dispatch) => {
   }
 }
 
+const initialState = { 
+  user: null,
+  errors: null
+ };
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return { user: action.payload }
+      return { ...state, user: action.payload }
     case REMOVE_USER:
-      return { user: null }
+      return { errors:null, user: null }
+    case SET_ERRORS:
+      return {...state, errors: action.payload}
+
     default:
       return state;
   }

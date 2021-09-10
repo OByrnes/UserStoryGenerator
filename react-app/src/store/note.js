@@ -1,7 +1,9 @@
+import { SetErrors } from "./session"
+
 const ADD_NOTE= "stories/ADD_NOTE"
 const EDIT_NOTE="stories/EDIT_NOTE"
 export const SET_NOTES = "stories/SET_NOTES"
-const SET_NOTE_ERRORS = "stories/SET_NOTE_ERRORS"
+
 const SET_CURRENT_NOTE = "stories/SET_CURRENT_NOTE"
 const CLEAR_CURRENT_NOTE = "stories/CLEAR_CURRENT_NOTE"
 
@@ -16,10 +18,6 @@ const AddNewNote = (note) =>({
     payload: note
 })
 
-const SetErrors = (errors) => ({
-    type: SET_NOTE_ERRORS,
-    payload: errors
-})
 
 const setCurrentNote = (note) => ({
   type: SET_CURRENT_NOTE,

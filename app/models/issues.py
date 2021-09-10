@@ -6,10 +6,12 @@ class Issue(db.Model):
     __tablename__ = 'issues'
 
     id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.String(100), nullable=False)
+    action = db.Column(db.String(255))
+    result = db.Column(db.String(255))
     feature_id = db.Column(db.Integer, db.ForeignKey("features.id"), nullable=False)
-    user_story = db.Column(db.String(255), nullable=False)
+    # story_id = db.Column(db.Integer, db.ForeignKey("stories.id"), nullable=False)
     
-    questions = db.relationship("Question", backref="Issue", cascade="all, delete-orphan")
     acceptanceCriteria = db.relationship("AcceptanceCriterium", backref="Issue", cascade="all, delete-orphan")
 
 
@@ -17,8 +19,9 @@ class Issue(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "user_story": self.user_story,
-            "question": {question.just_id(): question.to_dict() for question in self.questions},
+            "user":self.user,
+            "result": self.result,
+            "action": self.action,
             "ac": {ac.just_id() : ac.to_dict() for ac in self.acceptanceCriteria}
             
         }
@@ -31,3 +34,9 @@ class Issue(db.Model):
         for ac in self.acceptanceCriteria:
             string+=f'\n {ac.checkbox()}'
         
+    def to_story_issue(self):
+        story = '**User Story**'
+        story += f'\t* As a {self.user} I want to be able to ${self.action} so that I can {self.result} \r'
+        story += "**Acceptance Criteria**"
+        for ac in self.acceptanceCriteria:
+            story+= f'{ac.checkbox()} \n'

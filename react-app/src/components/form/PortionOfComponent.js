@@ -3,20 +3,20 @@ import Action from './Action';
 import AddFeatureComponent from './AddFormComponent';
 import AddQuestion from "./AddQuestions"
 import UserA from './userA';
-import {useStory} from "../context/StoryContext"
+import {useStory} from "../../context/StoryContext"
 
 
 const PortionOfComponent = () => {
     const { status } =  useStory()
  
-       { if(status === "new"){
+       { if(status.current === "new"){
            return <AddFeatureComponent />
 
-        }else if(status === "questions"){
+        }else if(status.current === "questions"){
             return <AddQuestion />
-        }else if(status === "userA"){
+        }else if(status.current === "userA"){
             return <UserA />
-        }else if(status === "action"){
+        }else if(status.current === "action"){
             return <Action />
         }
     }

@@ -10,6 +10,10 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.story_routes import story_routes
 from .api.notes_routes import notes_routes
+from .api.acceptance_routes import acceptanceCriteria_routes
+from .api.feature_routes import feature_routes
+from .api.issue_routes import issue_routes
+from .api.questions_routes import question_routes
 
 from .seeds import seed_commands
 
@@ -35,6 +39,11 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(story_routes, url_prefix="/api/stories")
 app.register_blueprint(notes_routes, url_prefix="/api/notes")
+app.register_blueprint(feature_routes, url_prefix="/api/features")
+app.register_blueprint(issue_routes, url_prefix="/api/issues")
+app.register_blueprint(question_routes, url_prefix="/api/questions")
+app.register_blueprint(acceptanceCriteria_routes, url_prefix="/api/acceptancecriteria")
+
 
 db.init_app(app)
 Migrate(app, db)

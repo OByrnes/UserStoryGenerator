@@ -1,7 +1,9 @@
+import { SetErrors } from "./session"
+
 const ADD_STORY= "stories/ADD_STORY"
 const EDIT_STORY="stories/EDIT_STORY"
 const SET_STORIES = "stories/SET_STORIES"
-const SET_ERRORS = "stories/SET_ERRORS"
+
 const SET_CURRENT_STORY = "stories/SET_CURRENT_STORY"
 const CLEAR_CURRENT_STORY = "stories/CLEAR_CURRENT_STORY"
 
@@ -16,17 +18,14 @@ const AddNewStory = (story) =>({
     payload: story
 })
 
-const SetErrors = (errors) => ({
-    type: SET_ERRORS,
-    payload: errors
-})
+
 
 const setCurrentStory = (story) => ({
   type: SET_CURRENT_STORY,
   payload: story
 })
 
-const editStory = (story) => ({
+export const editStory = (story) => ({
   type: EDIT_STORY,
   payload: story
 })
@@ -36,10 +35,13 @@ export const clearCurrent = () => ({
   payload: null
 })
 
-export const AddUserStory = (form) => async dispatch => {
+export const AddUserStory = (story) => async dispatch => {
     const response = await fetch('/api/stories/', {
         method: 'POST',
-        body: form
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(story)
       })
       if(response.ok){
           let resJSON = await response.json()
@@ -52,10 +54,13 @@ export const AddUserStory = (form) => async dispatch => {
 
 }
 
-export const EditUserStory = (form, id) => async dispatch => {
-  const response = await fetch(`/api/stories/${id}`, {
+export const EditUserStory = (story) => async dispatch => {
+  const response = await fetch(`/api/stories/${story.id}`, {
       method: 'PATCH',
-      body: form
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(story)
     })
     if(response.ok){
         let resJSON = await response.json()
@@ -66,6 +71,20 @@ export const EditUserStory = (form, id) => async dispatch => {
         }
     }
 
+}
+
+export const getCurrent = (id) => async dispatch => {
+  const response = await fetch(`/api/stories/${id}`)
+  if(response.ok){
+    let resJSON = await response.json()
+    if(resJSON.errors){
+      dispatch(SetErrors(resJSON.errors))
+
+    }
+    else{
+      dispatch(setCurrent(resJSON))
+    }
+  }
 }
 
 export const setCurrent = (story) => dispatch => {

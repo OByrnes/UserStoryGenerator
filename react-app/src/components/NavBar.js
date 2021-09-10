@@ -9,16 +9,12 @@ import { clearCurrent } from "../store/story";
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user)
-  const {setStoryObj} = useStory()
   const history = useHistory()
   const dispatch = useDispatch()
  const goToHome = (e) => {
   e.preventDefault()
   if(user){
-    
-    setStoryObj({featureList:[], title:""})
     dispatch(clearCurrent())
-
   }
   history.push("/create")
 

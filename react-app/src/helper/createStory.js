@@ -18,7 +18,7 @@ export const createStory = (obj) => {
             story += `\t* As a ${users[j]} I want to be able to ${actions[j]} so that I can ${results[j]} \r`
             story+=`**Acceptance Criteria`
             for(let h=0; h < acceptanceCriteria[j].length; h++){
-                story += `-[] ${acceptanceCriteria[j]} \r`
+                story += `-[ ] ${acceptanceCriteria[j]} \r`
             }
         }
     }
