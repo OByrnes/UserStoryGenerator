@@ -6,7 +6,6 @@ import { AddFeature } from '../../store/features';
 const AddFeatureComponent = () => {
     const dispatch = useDispatch()
     const story = useSelector(state => state.stories.current)
-    const errors = useSelector(state => state.errors)
     const [featureName, setFeatureName] = useState('')
     const { status, setCurrentFeature } =  useStory()
     
@@ -16,8 +15,8 @@ const AddFeatureComponent = () => {
                 title:featureName,
                 story_id: story.id
             }
-           await dispatch(AddFeature(newFeature))
-        if(!errors){
+           let good = await dispatch(AddFeature(newFeature))
+           if(good==="good"){
             status.current = 'questions'
             setCurrentFeature(featureName)
 

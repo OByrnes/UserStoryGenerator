@@ -9,9 +9,9 @@ export const AddQuestion = (question) => async dispatch => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: JSON.stringify(
          question
-        })
+        )
       })
       if(response.ok){
           let resJSON = await response.json()
@@ -19,6 +19,7 @@ export const AddQuestion = (question) => async dispatch => {
               dispatch(SetErrors(resJSON.errors))
           }else{
             dispatch(editStory(resJSON))
+            return "good"
           }
       }else{
         dispatch(SetErrors(["Ooops, Something went wrong"]))
@@ -26,7 +27,7 @@ export const AddQuestion = (question) => async dispatch => {
   
   }
   
-  export const deleteQuestion = (id) => async dispatch => {
+  export const deleteQuestion = (id, story_id) => async dispatch => {
     const response = await fetch(`/api/questions/${id}`, {
         method: "DELETE",
         headers: {
@@ -40,7 +41,7 @@ export const AddQuestion = (question) => async dispatch => {
           dispatch(SetErrors(resJSON.errors))
       }else{
           dispatch(editStory(resJSON))
-
+          return "good"
       }
     }else{
         dispatch(SetErrors(["Ooops, Something went wrong"]))
@@ -48,8 +49,11 @@ export const AddQuestion = (question) => async dispatch => {
   }
   
   export const EditSavedQuestion = (question) => async dispatch => {
-  const response = await fetch(`/api/questions/${note.id}`, {
+  const response = await fetch(`/api/questions/${question.id}`, {
       method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+      },
       body:JSON.stringify(
         question)
     })
@@ -59,6 +63,7 @@ export const AddQuestion = (question) => async dispatch => {
             dispatch(SetErrors(resJSON.errors))
         }else{
           dispatch(editStory(resJSON))
+          return "good"
         }
     }else{
         dispatch(SetErrors(["Ooops, Something went wrong"]))

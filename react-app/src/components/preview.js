@@ -3,7 +3,7 @@ import Editor from "rich-markdown-editor";
 import { useStory } from "../context/StoryContext";
 
 const Preview = () => {
-    const story = useSelector(state => state.story.current)
+    const story = useSelector(state => state.stories.current)
 
     return(
 

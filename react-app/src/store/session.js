@@ -32,10 +32,12 @@ export const authenticate = () => async (dispatch) => {
     const data = await response.json();
     if (data.errors) {
       SetErrors(data.errors)
+    }else{
+      dispatch(setUser(data));
+      dispatch(setUserStories(data.stories))
+      return "good"
     }
   
-    dispatch(setUser(data));
-    dispatch(setUserStories(data.stories))
   }
 }
 
@@ -59,6 +61,7 @@ export const login = (email, password) => async (dispatch) => {
     }else{
       dispatch(setUser(data))
        dispatch(setUserStories(data.stories))
+       return "good"
        
 
     }
@@ -99,11 +102,11 @@ export const signUp = (username, email, password) => async (dispatch) => {
     const data = await response.json();
     dispatch(setUser(data))
     
-    return null;
+    return "good";
   } else if (response.status < 500) {
     const data = await response.json();
     if (data.errors) {
-      return data.errors;
+      dispatch(SetErrors(data.errors))
     }
   } else {
     return ['An error occurred. Please try again.']

@@ -9,7 +9,8 @@ const AddQuestions = () => {
     const dispatch = useDispatch()
 
     const story = useSelector(state => state.stories.current)
-    const errors = useSelector(state => state.errors)
+    const errors = useSelector(state => state.session.errors)
+    const feature = useSelector(state => state.features)
     const [question, setQuestion] = useState("")
     const [answer, setAnswer] = useState("")
  
@@ -18,9 +19,9 @@ const AddQuestions = () => {
     
 
     const addNewQuestion = async () => {
-        const newQuestion = {question, answer, story_id:story.id}
-        await dispatch(AddQuestion(newQuestion))
-        if(!errors){
+        const newQuestion = {question, answer, story_id:story.id, feature_id: feature.id}
+        let good = await dispatch(AddQuestion(newQuestion))
+        if(good==="good"){
             setQuestion("")
             setAnswer('')
             dispatch(SetErrors([`Your question and answer was added to the ${currentFeature} feature`]))

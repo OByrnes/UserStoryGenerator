@@ -4,16 +4,26 @@ import EditActions from "./editActions"
 import EditFeatureName from "./editFeatureName"
 import EditQuestion from "./editQuestions"
 import { useDispatch, useSelector } from "react-redux"
+import { useStory } from "../../context/StoryContext"
+import { setCurrentIssue } from "../../store/issues"
+import { setCurrent as setCurrentFeature } from "../../store/features"
+import { setCurrent } from "../../store/story"
 
 
 
 
 
 
-const SubInnerSideBar = ({content,feature, ele}) => {
+const SubInnerSideBar = ({content, feature, ele}) => {
+    const {status} = useStory()
     const [edit, setEdit] = useState(false)
-    const {questions, answers, users, results, actions, acceptanceCriteria} = feature
     const story = useSelector(state => state.stories.current)
+    const addMoreAC = (issue) => {
+        status.current = "AC"
+        setCurrentFeature(feature)
+        setCurrentIssue(issue)
+        setCurrent(story)
+    }
     
     const dispatch = useDispatch()
     
@@ -21,7 +31,7 @@ const SubInnerSideBar = ({content,feature, ele}) => {
     if(ele ==="questions"){
         return(<div onClick={()=>setEdit(true)} >
                 {edit?
-                <EditQuestion content={content} setEdit={setEdit}/>:
+                <EditQuestion feature={feature} content={content} setEdit={setEdit}/>:
                 <>
                 <span>{content.question}</span>
                 <span>{content.answer}</span></>}
@@ -41,14 +51,15 @@ const SubInnerSideBar = ({content,feature, ele}) => {
      <span>{content.user}</span>
     <span>{content.action}</span>
     <span>{content.result}</span>
-    <h4>Acceptance Criteria</h4>
-    {content.ac.map(crit => (
+    {content.ac?<h4>Acceptance Criteria</h4>: null}
+    {content.ac? content.ac.map(crit => (
         <span key={crit.id}>{crit.text}</span>
-    ))}
+    )):null}
+    <button onClick={()=>addMoreAC(content)}>Add More Acceptance Criteria</button>
     </>}
 </div>)
 }else{
-    return (<div onClick={()=>setEdit(true)}>{edit? <EditFeatureName content={feature.name} setEdit={setEdit}/>:<h3>{feature.feature}</h3>}</div>
+    return (<div onClick={()=>setEdit(true)}>{edit? <EditFeatureName content={content} setEdit={setEdit}/>:<h3>{content.name}</h3>}</div>
     )
 }
 

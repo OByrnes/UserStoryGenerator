@@ -11,7 +11,9 @@ question_routes = Blueprint('questions', __name__)
 @login_required
 def add_new_question():
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    print(req)
+    story = story_exists(req["story_id"],errors)
     form=QuestionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit() and story:
@@ -34,8 +36,11 @@ def add_new_question():
 def edit_story(issue_id):
     updatedquestion = Question.query.get(issue_id)
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    story = story_exists(req["story_id"],errors)
     form = QuestionForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form["feature_id"].data = req["feature_id"]
     if form.validate_on_submit():
         updatedquestion.question = form.data["question"]
         updatedquestion.answer = form.data["answer"]
@@ -55,7 +60,8 @@ def delete_story(issue_id):
     db.session.delete(question)
     db.session.commit()
     errors = []
-    story = story_exists(request.data['story_id'],errors)
+    req = request.get_json()
+    story = story_exists(req['story_id'],errors)
     if story:
         return story.to_dict()
     return {"errors": errors}

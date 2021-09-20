@@ -15,9 +15,8 @@ const StoryPage = () => {
     const [view, setView] = useState(false)
     const dispatch = useDispatch()
     useEffect(()=> {
-        if(Object.values(story).length){
-            setMdStory(story.story)
-            setStoryObj(story)
+        if(story.id){
+            console.log("moop")
         }else{
             dispatch(getCurrent(id))
         }
@@ -30,7 +29,7 @@ const StoryPage = () => {
         <>
         {view?<CreateStoryForm story={story} /> :<>
         <Preview />
-         <button onClick={() => {navigator.clipboard.writeText(mdStory)}}>Copy to Clipboard</button>
+         <button onClick={() => {navigator.clipboard.writeText(story.story)}}>Copy to Clipboard</button>
          <button onClick={EditView}> Add More Features</button>
 </>
         }

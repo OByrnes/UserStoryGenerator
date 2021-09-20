@@ -20,15 +20,18 @@ class Feature(db.Model):
             "id": self.id,
             "name": self.name,
             "issues_formatted": self.format_feature(),
-            "issues": {issue.just_id(): issue.to_dict() for issue in self.issues} if self.issues else None,
-            "questions": {question.just_id() : question.to_dict() for question in self.questions} if self.questions else None
+            "issues": [issue.to_dict() for issue in self.issues] if self.issues else None,
+            "questions": [question.to_dict() for question in self.questions] if self.questions else None
         }
 
     def just_id(self):
         return self.id
 
     def format_feature(self):
-        return  [issue.format_issue() for issue in self.issues]
+        if self.issues:
+            return  [issue.format_issue() for issue in self.issues]
+        else:
+            return None
 
     def feature_in_story(self):
         story = f'## {self.name} \r'

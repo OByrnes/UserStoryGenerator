@@ -4,7 +4,7 @@ import { editStory } from "./story";
 
 
 export const AddAC = (ac) => async dispatch => {
-    const response = await fetch('/api/acceptanceCriteria/', {
+    const response = await fetch('/api/acceptancecriteria/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -19,6 +19,7 @@ export const AddAC = (ac) => async dispatch => {
               dispatch(SetErrors(resJSON.errors))
           }else{
             dispatch(editStory(resJSON))
+            return "good"
           }
       }else{
         dispatch(SetErrors(["Ooops, Something went wrong"]))
@@ -27,7 +28,7 @@ export const AddAC = (ac) => async dispatch => {
   }
   
   export const deleteAC = (id, story_id) => async dispatch => {
-    const response = await fetch(`/api/acceptanceCriteria/${id}`,{
+    const response = await fetch(`/api/acceptancecriteria/${id}`,{
         method: 'DELETE',
         headers: {
           "Content-Type": "application/json",
@@ -40,6 +41,7 @@ export const AddAC = (ac) => async dispatch => {
           dispatch(SetErrors(resJSON.errors))
       }else{
         dispatch(editStory(resJSON))
+        return "good"
       }
     }else{
         dispatch(SetErrors(["Ooops, Something went wrong"]))
@@ -47,8 +49,11 @@ export const AddAC = (ac) => async dispatch => {
   }
   
   export const EditAcceptanceCriteria = (ac) => async dispatch => {
-  const response = await fetch(`/api/acceptanceCriteria/${ac.id}`, {
+  const response = await fetch(`/api/acceptancecriteria/${ac.id}`, {
       method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+      },
       body:JSON.stringify(
         ac)
     })
@@ -58,6 +63,7 @@ export const AddAC = (ac) => async dispatch => {
             dispatch(SetErrors(resJSON.errors))
         }else{
           dispatch(editStory(resJSON))
+          return "good"
         }
     }else{
         dispatch(SetErrors(["Ooops, Something went wrong"]))

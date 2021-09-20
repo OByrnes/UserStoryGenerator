@@ -11,13 +11,14 @@ acceptanceCriteria_routes = Blueprint('acceptanceCriteria', __name__)
 @login_required
 def add_new_acceptanceCriteria():
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    story = story_exists(req["story_id"],errors)
     form=AcceptanceCriteriaForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit() and story:
         newacceptanceCriteria = AcceptanceCriterium(
             text = form.data['acceptanceCriteria'],
-            issue_id = form.data["issue_id"]
+            issue_id = req["issue_id"]
         )
         db.session.add(newacceptanceCriteria)
         db.session.commit()
@@ -32,7 +33,8 @@ def add_new_acceptanceCriteria():
 @login_required
 def edit_story(acceptanceCriteria_id):
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    story = story_exists(req["story_id"],errors)
     updatedacceptanceCriteria = AcceptanceCriterium.query.get(acceptanceCriteria_id)
     form = AcceptanceCriteriaForm()
     if form.validate_on_submit():
@@ -53,7 +55,8 @@ def delete_story(acceptanceCriteria_id):
     db.session.delete(acceptanceCriteria)
     db.session.commit()
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    story = story_exists(req["story_id"],errors)
     if story:
         return story.to_dict()
     return {"errors": errors}

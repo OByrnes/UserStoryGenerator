@@ -16,7 +16,7 @@ class Story(db.Model):
         return {
             "id": self.id,
             "title":self.app_name,
-            "featureList": {feature["name"]: feature.to_dict() for feature in self.features} if self.features else None,
+            "featureList": {feature.just_id(): feature.to_dict() for feature in self.features} if self.features else None,
             "user_id": self.user_id,
             "story": self.create_md_string(),
             "issues": self.get_features() if self.features else None

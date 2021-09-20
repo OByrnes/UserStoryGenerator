@@ -22,7 +22,7 @@ class Issue(db.Model):
             "user":self.user,
             "result": self.result,
             "action": self.action,
-            "ac": {ac.just_id() : ac.to_dict() for ac in self.acceptanceCriteria}
+            "ac": [ac.to_dict() for ac in self.acceptanceCriteria] if self.acceptanceCriteria else None
             
         }
 
@@ -30,13 +30,17 @@ class Issue(db.Model):
         return self.id
 
     def format_issue(self):
-        string = f'*{self.user_story}*'
-        for ac in self.acceptanceCriteria:
-            string+=f'\n {ac.checkbox()}'
+        string = f'*As a {self.user} I want to {self.action} so that I can {self.result}*'
+        if self.acceptanceCriteria:
+            for ac in self.acceptanceCriteria:
+                string+=f'\n {ac.checkbox()}'
+        return string
         
     def to_story_issue(self):
-        story = '**User Story**'
+        story = '**User Story** \r'
         story += f'\t* As a {self.user} I want to be able to ${self.action} so that I can {self.result} \r'
-        story += "**Acceptance Criteria**"
-        for ac in self.acceptanceCriteria:
-            story+= f'{ac.checkbox()} \n'
+        if(self.acceptanceCriteria):
+            story += "**Acceptance Criteria** \r"
+            for ac in self.acceptanceCriteria:
+                story+= f'{ac.checkbox()} \n'
+        return story

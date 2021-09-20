@@ -1,17 +1,17 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { EditSavedFeature } from "../../store/features"
 
 
 
 const EditFeatureName = ({content, setEdit}) => {
     const story = useSelector(state => state.stories.current)
-    const errors = useSelector(state => state.errors)
     const dispatch = useDispatch()
-    const [featureName, setFeatureName] = useState(content)
+    const [featureName, setFeatureName] = useState(content.name)
     const UpdateFeature = async (e) => {
         e.preventDefault()
-        await dispatch({title: featureName, story_id: story.id })
-        if(!errors){
+        let good = await dispatch(EditSavedFeature({id:content.id, title: featureName, story_id: story.id }))
+        if(good){
             setEdit(false)
         }
     }

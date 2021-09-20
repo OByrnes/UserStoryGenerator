@@ -11,20 +11,20 @@ issue_routes = Blueprint('issues', __name__)
 @login_required
 def add_new_issue():
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    story = story_exists(req["story_id"],errors)
     form=IssueForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit() and story:
         newissue = Issue(
-            story_id=form.data["story_id"],
-            user=form.data["title"],
+            user=form.data["user"],
             action = form.data["action"],
             result = form.data["result"],
-            feature_id = form.data["feature_id"],
+            feature_id = req["feature_id"],
         )
         db.session.add(newissue)
         db.session.commit()
-        return story.to_dict()
+        return {"story":story.to_dict(), "issue": newissue.to_dict()}
     else:
         validation_errors_to_error_messages(form.errors, errors)
         return {"errors": errors }
@@ -34,14 +34,15 @@ def add_new_issue():
 @issue_routes.route('/<int:issue_id>', methods=["PATCH"])
 @login_required
 def edit_story(issue_id):
-    updatedissue = issue.query.get(issue_id)
+    updatedissue = Issue.query.get(issue_id)
     errors = []
-    story = story_exists(request.data["story_id"], errors)
+    req = request.get_json()
+    story = story_exists(req["story_id"],errors)
     form = IssueForm()
     if form.validate_on_submit():
         updatedissue.name = form.data["title"]
         db.session.commit()
-        return story.to_dict()
+        return {"issue": updatedissue.to_dict(), "story":story.to_dict()}
     else:
         validation_errors_to_error_messages(form.errors, errors) 
         return {"errors": errors}
@@ -56,6 +57,7 @@ def delete_story(issue_id):
     db.session.delete(issue)
     db.session.commit()
     errors = []
+    req = request.get_json()
     story = story_exists(request.data['story_id'],errors)
     if story:
         return story.to_dict()

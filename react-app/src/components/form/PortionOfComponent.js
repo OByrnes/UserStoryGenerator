@@ -4,6 +4,7 @@ import AddFeatureComponent from './AddFormComponent';
 import AddQuestion from "./AddQuestions"
 import UserA from './userA';
 import {useStory} from "../../context/StoryContext"
+import AcceptanceCriteria from './acceptanceCriteria';
 
 
 const PortionOfComponent = () => {
@@ -18,6 +19,8 @@ const PortionOfComponent = () => {
             return <UserA />
         }else if(status.current === "action"){
             return <Action />
+        }else if(status.current === "AC"){
+            return <AcceptanceCriteria />
         }
     }
 }

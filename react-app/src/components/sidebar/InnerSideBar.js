@@ -2,25 +2,25 @@
 import SubInnerSideBar from "./SubInnerSideBar"
 
 const InnerSideBar = ({feature}) => {
-    const { questions, name, issues } = feature
+    const { questions, issues } = feature
     
-   
     
     return (
+        
         <div className="innerSidebar">
-        <SubInnerSideBar key={feature.id} feature={feature}  ele="feature name"/>
+        <SubInnerSideBar key={feature.id} content={feature}  ele="feature name"/>
         {questions? <h4>questions</h4>:null}
         <ul>
-        {questions.map((question)=>(
+        {questions ? questions.map((question)=>(
             <li key={question.id+"question"}><SubInnerSideBar feature={feature} content={question}  ele="questions" /></li>
-        ))}
+        )): null}
         </ul>
         
-        {issues.map((issue)=>(
+        {issues? issues.map((issue)=>(
             <li  key={`${issue.id}+action`} ><SubInnerSideBar feature={feature} content={issue}  ele="actions" /></li>
-            ))}
-        
-</div>
+            )): null}
+       </div>
+
     )
 
 }

@@ -6,7 +6,7 @@ import { EditAcceptanceCriteria } from "../../store/acceptanceCriteria"
 const editAC = ({content, setEdit}) => {
     const [ac, setAc] = useState(content.text)
     const story = useSelector(state => state.stories.current)
-    const errors = useSelector(state => state.errors)
+    const errors = useSelector(state => state.session.errors)
     const dispatch = useDispatch()
     const updateAC = async (e) => {
         e.preventDefault()

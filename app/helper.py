@@ -5,6 +5,8 @@ def validation_errors_to_error_messages(validation_errors, errorMessages):
     """
     for field in validation_errors:
         for error in validation_errors[field]:
+            if("required" in error):
+                error = f'The {field} is required.'
             errorMessages.append(error)
     return errorMessages
 

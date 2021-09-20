@@ -10,7 +10,7 @@ const ErrorComponent = () => {
     useEffect(()=>{
         const errorTimer = setTimeout(()=>{
             dispatch(SetErrors(null))
-            console.log("WOoop")
+            
         }, 6000)
         return ()=>clearTimeout(errorTimer)
     

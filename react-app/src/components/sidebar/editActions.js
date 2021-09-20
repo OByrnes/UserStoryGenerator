@@ -9,7 +9,7 @@ const EditActions = ({content, setEdit}) => {
     const [who, setWho] = useState(content.user)
     const [action, setAction] = useState(content.action)
     const [result, setResult] = useState(content.result)
-    const errors = useSelector(state => state.errors)
+    const errors = useSelector(state => state.session.errors)
     const story = useSelector(state => state.story.current)
     const dispatch = useDispatch()
     // const [acceptanceCriteria, setAcceptanceCriteria] = useState(feature.acceptanceCriteria[index])
