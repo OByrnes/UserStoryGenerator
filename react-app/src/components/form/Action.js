@@ -19,7 +19,7 @@ const Action = () => {
         const issue = {action, result, feature_id: feature.id, story_id: story.id, user:who}
         let good = await dispatch(AddIssue(issue))
         if(good==="good"){
-            dispatch(SetErrors([`Your story was added to the ${currentFeature} feature`]))
+            await dispatch(SetErrors([`Your story was added to the ${currentFeature} feature`]))
             setAction("")
             setResult('')
             

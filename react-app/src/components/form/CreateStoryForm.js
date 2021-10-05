@@ -14,6 +14,7 @@ import { AddUserStory, EditUserStory, getCurrent } from "../../store/story";
 const CreateStoryForm = () => {
     const story = useSelector(state=> state.stories.current)
     const user = useSelector(state => state.session.user)
+    const feature = useSelector(state => state.features)
     const { id } = useParams()
     const [appTitle, setAppTitle] = useState(id ? story.title: "")
     const [showPreview, setShowPreview] = useState(false)
@@ -21,25 +22,30 @@ const CreateStoryForm = () => {
     const [editTitle, setEditTitle] = useState(true)
     const [started, setStarted] = useState(id? true: false)
     const { status } = useStory()
-   const inputTitleRef = useRef()
-  
+    const inputTitleRef = useRef()
+    
+    useEffect(()=>{
+        setShowSidebar(false)
+
+    },[feature])
+    useEffect(()=>{
+        setAppTitle(story.title)
+    },[story])
     useEffect(()=> {
         if(inputTitleRef.current){
-
             inputTitleRef.current.focus()
         }
     },[])
     const dispatch = useDispatch()
     
     const PreviewStory = () => {
-        
         setShowPreview(true)
     }
 
     const startStory = async (e) => {
         e.preventDefault()
         if(story.id){
-            console.log("its getting here")
+            
             let good = await dispatch(EditUserStory({
                 id:story.id,
                 app_name:appTitle
@@ -61,14 +67,14 @@ const CreateStoryForm = () => {
         if(id){
             dispatch(getCurrent(id))
         }
-    },[dispatch])
+    },[dispatch, id])
     
 
     return (
     <div className="outer_container">
     <div className="main-Content__container">
         <form className="form-Styling">
-            {(editTitle || status.current === "new") ?<div>
+            {(editTitle) ?<div>
             <label>
                 Name Of The App
             </label>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setCurrent } from "../store/story";
+import { useStory } from "../context/StoryContext";
 
 
 
@@ -10,9 +11,11 @@ const StoryDropDown = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     let stories = useSelector((state)=>state.stories.all?Object.values(state.stories.all):null)
+    const { status } =  useStory()
     const goToTheStory = (story) => {
         dispatch(setCurrent(story))
         setShowDropDown(false)
+        status.current = "new"
         history.push(`/stories/${story.id}`)
     }
 

@@ -1,8 +1,11 @@
 
 import SubInnerSideBar from "./SubInnerSideBar"
+import { useStory } from "../../context/StoryContext"
 
 const InnerSideBar = ({feature}) => {
     const { questions, issues } = feature
+    const { status } = useStory()
+    
     
     
     return (

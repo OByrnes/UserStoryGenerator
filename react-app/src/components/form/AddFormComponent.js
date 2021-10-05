@@ -10,14 +10,14 @@ const AddFeatureComponent = () => {
     const { status, setCurrentFeature } =  useStory()
     
    
-    const moveToNextSection = async () => {
+    const moveToNextSection = async (nextSection) => {
         let newFeature={
                 title:featureName,
                 story_id: story.id
             }
            let good = await dispatch(AddFeature(newFeature))
            if(good==="good"){
-            status.current = 'questions'
+            status.current = nextSection
             setCurrentFeature(featureName)
 
         }
@@ -31,7 +31,8 @@ const AddFeatureComponent = () => {
             Feature
         </label>
             <input type="text" value={featureName} onChange={(e)=>setFeatureName(e.target.value)}/>
-        <button type='button' onClick={moveToNextSection}>Add Questions</button>
+        <button type='button' onClick={()=>moveToNextSection("questions")}>Add Questions</button>
+        <button type='button' onClick={()=>moveToNextSection("action")}>Add Story and Acceptance Criteria</button>
         
         </div>
 

@@ -40,7 +40,8 @@ const AcceptanceCriteria = ()=>{
          }
      }
      const moveToNextSection = () => {
-         if(addToDB()){
+         
+         if(newAcceptanceCriteria !== "" && addToDB()){
              setNewAcceptanceCriteria("")
              status.current = "new"
          }
@@ -56,8 +57,8 @@ const AcceptanceCriteria = ()=>{
 
             <div className="button-Container__inside-form">
             <button tabIndex={5} type='button' onClick={goBackToStory}>Go Back </button>
-            <button tabIndex={6} type='button' onClick={addNewAC}>Add New Acceptance Criteria</button>
-            <button tabIndex={7} type='button' onClick={moveToNextSection}>Move to Next Feature</button>
+            <button tabIndex={6} type='button' onClick={addNewAC}>Add Another Acceptance Criteria</button>
+            <button tabIndex={7} type='button' onClick={moveToNextSection}>Save and Move to Next Feature</button>
             </div>
     
             </div>

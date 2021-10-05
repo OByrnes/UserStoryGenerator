@@ -2,7 +2,7 @@ from app.forms.feature_form import FeatureForm
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.helper import validation_errors_to_error_messages, story_exists
-from app.models import User, Story,Feature, db, stories
+from app.models import User, Story, Feature, db
 
 feature_routes = Blueprint('features', __name__)
 

@@ -5,10 +5,12 @@ import IndividualNote from "./individualNote"
 
 const NotePage = () => {
     const [noteText, setNoteText] = useState("")
+    const [date, setDate] = useState(new Date().toISOString().slice(0,12))
+
     const dispatch = useDispatch()
     const saveNote = (e) => {
         e.preventDefault()
-        dispatch(AddNote(noteText))
+        dispatch(AddNote({noteText, date:date}))
         setNoteText("")
 
     }
@@ -30,6 +32,8 @@ const NotePage = () => {
                     Add a note ...
                 </label>
                 <textarea value={noteText} onChange={(e)=>setNoteText(e.target.value)} />
+                <input  type="datetime-local"
+       name="meeting-time" value={date} onChange={(e)=>setDate(e.target.value)} />
                 <div>
                     <button type='submit'>Save Note</button>
                 </div>

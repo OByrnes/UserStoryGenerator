@@ -27,11 +27,12 @@ class Story(db.Model):
     
 
     def get_features(self):
-        return {feature.id: feature.format_feature() for feature in self.features }
+        return {feature.id: feature.format_feature() for feature in self.features if feature.format_feature()}
 
     def create_md_string(self):
         story = f'# {self.app_name} \r'
         if self.features:
             for feature in self.features:
-                story += f'\n {feature.feature_in_story()}'
+                if feature.feature_in_story():
+                    story += f'\n {feature.feature_in_story()}'
         return story

@@ -204,12 +204,22 @@ label span{
     width: 500px;
     transition: width .25s ease-in;
 }
+body{
+    height: 100vh;
+}
 .side-bar__container{
     padding-left: 10px;
     margin-top: 50px;
     /* max-width: 500px; */
     display: flex;
     flex-direction: column;
+    height: 110vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.side-bar__container::-webkit-scrollbar{
+    display: none;
 }
 .innerSidebar div:hover{
     color: #034078;
@@ -224,11 +234,23 @@ label span{
     flex-direction: column;
 }
 
+form.edit {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-height: fit-content;
+    max-height: 200px;
+}
+form.edit input {
+    border-bottom: none;
+    height: 25px;
+}
 .edit button{
-
+    align-self: center;
+    justify-self: center;
     display: flex;
     align-content: center;
     justify-content: center;
+    align-items: center;
     height: 20px;
     width: 70px;
 }
@@ -317,6 +339,7 @@ label span{
     display: flex;
     flex-direction: column;
     background-color: white;
+    z-index: 5;
     color: #0a1128;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -359,5 +382,13 @@ padding: 7px;
 .innerSidebar ul{
     margin: 0px;
     padding: 0px
+}
+
+.errorDiv{
+    background-color: rgb(211, 177, 155);
+    padding: 35px;
+    position: absolute;
+    top: 95px;
+    left: 30vw;
 }
 

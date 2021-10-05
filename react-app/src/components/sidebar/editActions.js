@@ -10,7 +10,7 @@ const EditActions = ({content, setEdit}) => {
     const [action, setAction] = useState(content.action)
     const [result, setResult] = useState(content.result)
     const errors = useSelector(state => state.session.errors)
-    const story = useSelector(state => state.story.current)
+    const story = useSelector(state => state.stories.current)
     const dispatch = useDispatch()
     // const [acceptanceCriteria, setAcceptanceCriteria] = useState(feature.acceptanceCriteria[index])
     const UpdateFeature = async(e) => {
@@ -22,9 +22,9 @@ const EditActions = ({content, setEdit}) => {
     }
     return(
     <form className="edit" onSubmit={UpdateFeature}>
-        <input type="text" value={who} onChange={(e)=>setWho(e.target.value)}/>
-        <input type="text" value={action} onChange={(e)=>setAction(e.target.value)}/>
-        <input type="text" value={result} onChange={(e)=>setResult(e.target.value)}/>
+        <input className="edit_input" type="text" value={who} onChange={(e)=>setWho(e.target.value)}/>
+        <input className="edit_input" type="text" value={action} onChange={(e)=>setAction(e.target.value)}/>
+        <input className="edit_input" type="text" value={result} onChange={(e)=>setResult(e.target.value)}/>
         {/* <input type="text" value={acceptanceCriteria} onChange={(e)=>setAcceptanceCriteria(e.target.value)}/> */}
         <button type="submit">Save</button>
         

@@ -6,6 +6,8 @@ export const useStory= () => useContext(StoryContext);
 
 export default function StoryProvider({ children }){
     const status = useRef("new")
+    const feature = useRef()
+    const issue = useRef()
     const [currentFeature, setCurrentFeature] = useState('')
     const [currentFeatureUser, setCurrentFeatureUser] = useState('')
 
@@ -16,7 +18,9 @@ export default function StoryProvider({ children }){
             currentFeature, 
             setCurrentFeature,
             currentFeatureUser,
-            setCurrentFeatureUser
+            setCurrentFeatureUser,
+            feature,
+            issue
         }} >
             {children}
         </StoryContext.Provider>

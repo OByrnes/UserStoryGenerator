@@ -11,6 +11,7 @@ import Splash from './components/splash/splash';
 import StoryPage from './components/storypage';
 import NotePage from './components/NotePage';
 import ErrorComponent from './components/errors';
+import StoryIssues from './components/storyPage/storyIssues';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -50,6 +51,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/notes" exact={true}>
           <NotePage />
+        </ProtectedRoute >
+        <ProtectedRoute  path="/issues/:id" exact>
+          <StoryIssues />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

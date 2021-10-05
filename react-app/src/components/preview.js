@@ -7,7 +7,7 @@ const Preview = () => {
 
     return(
 
-        <div>
+        <div className="preview__container">
             <Editor value={story.story} readOnly={true} />
         </div>
     )

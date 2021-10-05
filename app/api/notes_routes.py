@@ -26,7 +26,8 @@ def add_new_note():
     if form.validate_on_submit():
         new_note = Note(
              text=form.data['text'],
-             user_id=user_id
+             user_id=user_id,
+             test=form.data['test']
         )
         db.session.add(new_note)
         db.session.commit()

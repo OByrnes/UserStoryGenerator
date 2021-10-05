@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Action from './Action';
 import AddFeatureComponent from './AddFormComponent';
 import AddQuestion from "./AddQuestions"
 import UserA from './userA';
-import {useStory} from "../../context/StoryContext"
+import { useStory } from "../../context/StoryContext"
 import AcceptanceCriteria from './acceptanceCriteria';
+import { useSelector } from 'react-redux';
 
 
 const PortionOfComponent = () => {
     const { status } =  useStory()
- 
+    
+    
        { if(status.current === "new"){
            return <AddFeatureComponent />
 

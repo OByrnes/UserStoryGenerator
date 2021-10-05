@@ -38,7 +38,7 @@ class Issue(db.Model):
         
     def to_story_issue(self):
         story = '**User Story** \r'
-        story += f'\t* As a {self.user} I want to be able to ${self.action} so that I can {self.result} \r'
+        story += f'\t* As a {self.user} I want to be able to {self.action} so that I can {self.result} \r'
         if(self.acceptanceCriteria):
             story += "**Acceptance Criteria** \r"
             for ac in self.acceptanceCriteria:

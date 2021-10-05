@@ -11,6 +11,7 @@ story_routes = Blueprint('stories', __name__)
 @login_required
 def add_new_story():
     user_id = current_user.just_id()
+    print("current user", current_user, user_id)
     form=StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -45,6 +46,7 @@ def edit_story(story_id):
 @story_routes.route('/<int:story_id>', methods=["GET"])
 @login_required
 def get_story(story_id):
+    print(current_user.id)
     story = Story.query.get(story_id)
     if story:
         return story.to_dict()

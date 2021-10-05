@@ -9,7 +9,6 @@ const AddQuestions = () => {
     const dispatch = useDispatch()
 
     const story = useSelector(state => state.stories.current)
-    const errors = useSelector(state => state.session.errors)
     const feature = useSelector(state => state.features)
     const [question, setQuestion] = useState("")
     const [answer, setAnswer] = useState("")
@@ -23,9 +22,8 @@ const AddQuestions = () => {
         let good = await dispatch(AddQuestion(newQuestion))
         if(good==="good"){
             setQuestion("")
-            setAnswer('')
-            dispatch(SetErrors([`Your question and answer was added to the ${currentFeature} feature`]))
-            
+            setAnswer("")
+            await dispatch(SetErrors([`Your question and answer was added to the ${currentFeature} feature`]))
         }
     }
     const moveToNextSection = () => {

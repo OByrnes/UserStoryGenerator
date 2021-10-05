@@ -42,7 +42,8 @@ export const AddNote = (note) => async dispatch => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-       text: note
+       text: note.noteText,
+       test: note.date
       })
     })
     if(response.ok){

@@ -1,8 +1,9 @@
 
-import { useState, useEffect } from "react"
+import { useState} from "react"
 import EditActions from "./editActions"
 import EditFeatureName from "./editFeatureName"
 import EditQuestion from "./editQuestions"
+import EditAC from "./editAC"
 import { useDispatch, useSelector } from "react-redux"
 import { useStory } from "../../context/StoryContext"
 import { setCurrentIssue } from "../../store/issues"
@@ -18,18 +19,20 @@ const SubInnerSideBar = ({content, feature, ele}) => {
     const {status} = useStory()
     const [edit, setEdit] = useState(false)
     const story = useSelector(state => state.stories.current)
-    const addMoreAC = (issue) => {
-        status.current = "AC"
-        setCurrentFeature(feature)
-        setCurrentIssue(issue)
-        setCurrent(story)
-    }
     
     const dispatch = useDispatch()
+
+    const addMoreAC = () => {
+        status.current = "AC"
+        dispatch(setCurrentFeature(feature))
+        dispatch(setCurrentIssue(content))
+        dispatch(setCurrent(story))
+        
+    }
     
    
     if(ele ==="questions"){
-        return(<div onClick={()=>setEdit(true)} >
+        return(<div onClick={(e)=>e.target.tagName.toUpperCase() != 'INPUT' && setEdit(!edit) } >
                 {edit?
                 <EditQuestion feature={feature} content={content} setEdit={setEdit}/>:
                 <>
@@ -39,12 +42,13 @@ const SubInnerSideBar = ({content, feature, ele}) => {
 
 }else if(ele === "actions"){
     return(
-    <div onClick={()=>setEdit(true)} >
+    <div onClick={(e)=>e.target.tagName.toUpperCase() != 'INPUT' && setEdit(!edit) } >
     {edit? <> 
     <EditActions content={content} setEdit={setEdit}  />
-    {content.ac.map(crit => (
-        <editAC content={crit} setEdit={setEdit} />
+    {content.ac && content.ac.map(crit => (
+        <EditAC content={crit} setEdit={setEdit} feature={feature} />
     ))}
+    <button className="addACbutton" onClick={()=>addMoreAC()}>Add More Acceptance Criteria</button>
     </>:
      <>
      <h4>Story</h4>
@@ -55,11 +59,12 @@ const SubInnerSideBar = ({content, feature, ele}) => {
     {content.ac? content.ac.map(crit => (
         <span key={crit.id}>{crit.text}</span>
     )):null}
-    <button onClick={()=>addMoreAC(content)}>Add More Acceptance Criteria</button>
+    
     </>}
 </div>)
 }else{
-    return (<div onClick={()=>setEdit(true)}>{edit? <EditFeatureName content={content} setEdit={setEdit}/>:<h3>{content.name}</h3>}</div>
+    return (<div onClick={(e)=>e.target.tagName.toUpperCase() != 'INPUT' && setEdit(!edit) }>
+        {edit? <EditFeatureName content={content} setEdit={setEdit}/>:<h3>{content.name}</h3>}</div>
     )
 }
 

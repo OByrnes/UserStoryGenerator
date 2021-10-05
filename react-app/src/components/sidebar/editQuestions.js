@@ -20,8 +20,8 @@ const EditQuestion = ({setEdit, content, feature}) => {
     
     return(
     <form className="edit" onSubmit={UpdateFeature}>
-        <input type="text" value={question} onChange={(e)=>setQuestion(e.target.value)}/>
-        <input type="text" value={answer} onChange={(e)=>setAnswer(e.target.value)}/>
+        <input className="edit_input" type="text" value={question} onChange={(e)=>setQuestion(e.target.value)}/>
+        <input className="edit_input" type="text" value={answer} onChange={(e)=>setAnswer(e.target.value)}/>
         <button type="submit">Save</button>
         
     </form>
